@@ -1,0 +1,62 @@
+#!/usr/bin/ruby -w
+
+# Start's ngrok with the appropriate configuration.
+
+require 'json'
+
+require_relative '../lib/Config'
+
+# This method starts ngrok.  However, it's purpose is to facilitate unit
+# testing of command line parameters.
+#
+# @param tesla_config        [Hash]   TeslaAPI configuration
+# @param ngrok_config_file   [String] ngrok config file
+# @param traffic_policy_file [String] ngrok traffic policy file
+# @param executor            [Proc]   Function to call (defaults to normal exec)
+
+def start_ngrok(tesla_config,
+                ngrok_config_file,
+                traffic_policy_file,
+                executor = ->(*args) { exec(*args) })
+
+  public_host = tesla_config[:public_host]
+  local_port  = tesla_config[:local_port] || 8089
+
+  cmd = [
+    'ngrok',
+    'http',
+    "--url=#{public_host}",
+    local_port.to_s,
+    '--config',
+    ngrok_config_file
+  ]
+
+  unless traffic_policy_file.nil?
+    cmd.concat([
+      '--traffic-policy-file',
+      traffic_policy_file
+    ])
+  end
+
+  executor.call(*cmd)
+end
+
+if __FILE__ == $PROGRAM_NAME
+  tesla_config_file_name   = 'tesla_api.json'
+  ngrok_config_file_name   = 'ngrok.yaml'
+  traffic_policy_file_name = 'ngrok_tesla_policy.yaml'
+
+  tesla_config = Config.read_json(tesla_config_file_name)
+
+  ngrok_config_file =
+    Config.find_config_file(ngrok_config_file_name)
+
+  traffic_policy_file =
+    begin
+      Config.find_config_file(traffic_policy_file_name)
+    rescue RuntimeError
+      nil
+    end
+
+  start_ngrok(tesla_config, ngrok_config_file, traffic_policy_file)
+end

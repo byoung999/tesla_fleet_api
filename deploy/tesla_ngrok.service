@@ -1,0 +1,23 @@
+[Unit]
+Description=Run ngrok for Tesla API
+Wants=network-online.target
+After=network-online.target
+# Allow at most five starts within 30 seconds.
+StartLimitIntervalSec=30
+StartLimitBurst=5
+
+[Service]
+User=_SERVICE_USER_
+Group=_SERVICE_GROUP_
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+WorkingDirectory=_APP_DIR_
+ExecStart=_APP_DIR_/bin/start_ngrok
+Restart=on-failure
+KillMode=control-group
+TimeoutStopSec=10
+
+[Install]
+WantedBy=tesla_api_server.service

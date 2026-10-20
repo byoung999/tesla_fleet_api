@@ -1,0 +1,3062 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Tesla::VehicleCommand
+  
+    &mdash; Documentation by YARD 0.9.28
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Tesla::VehicleCommand";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (V)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span>
+     &raquo; 
+    <span class="title">VehicleCommand</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Tesla::VehicleCommand
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Tesla::VehicleCommand</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/signed_command/vehicle_command.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Builds and sends authenticated VCSEC vehicle commands such as lock/unlock and closure operations. It manages the VCSEC session handshake, authenticated RoutableMessages, encrypted responses, and recovery from recoverable session faults.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developers.tesla.com/docs/fleet-api" target="_parent" title="https://developers.tesla.com/docs/fleet-api">https://developers.tesla.com/docs/fleet-api</a></li>
+    
+  </ul>
+
+</div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="DOMAIN_VEHICLE_SECURITY-constant" class="">DOMAIN_VEHICLE_SECURITY =
+          <div class="docstring">
+  <div class="discussion">
+    <hr>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="FLAG_ENCRYPT_RESPONSE-constant" class="">FLAG_ENCRYPT_RESPONSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="SIGNATURE_TYPE_HMAC-constant" class="">SIGNATURE_TYPE_HMAC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="SIGNATURE_TYPE_HMAC_PERSONALIZED-constant" class="">SIGNATURE_TYPE_HMAC_PERSONALIZED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="SIGNATURE_TYPE_AES_GCM_RESPONSE-constant" class="">SIGNATURE_TYPE_AES_GCM_RESPONSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>9</span></pre></dd>
+      
+        <dt id="TAG_SIGNATURE_TYPE-constant" class="">TAG_SIGNATURE_TYPE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="TAG_DOMAIN-constant" class="">TAG_DOMAIN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="TAG_PERSONALIZATION-constant" class="">TAG_PERSONALIZATION =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="TAG_EPOCH-constant" class="">TAG_EPOCH =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="TAG_EXPIRES_AT-constant" class="">TAG_EXPIRES_AT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="TAG_COUNTER-constant" class="">TAG_COUNTER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="TAG_CHALLENGE-constant" class="">TAG_CHALLENGE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="TAG_FLAGS-constant" class="">TAG_FLAGS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="TAG_REQUEST_HASH-constant" class="">TAG_REQUEST_HASH =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="TAG_FAULT-constant" class="">TAG_FAULT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>9</span></pre></dd>
+      
+        <dt id="COMMAND_LIFETIME-constant" class="">COMMAND_LIFETIME =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>30</span></pre></dd>
+      
+        <dt id="RECOVERABLE_FAULTS-constant" class="">RECOVERABLE_FAULTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbracket'>[</span>
+  <span class='symbol'>:MESSAGEFAULT_ERROR_INVALID_SIGNATURE</span><span class='comma'>,</span>
+  <span class='symbol'>:MESSAGEFAULT_ERROR_INVALID_TOKEN_OR_COUNTER</span><span class='comma'>,</span>
+  <span class='symbol'>:MESSAGEFAULT_ERROR_INCORRECT_EPOCH</span><span class='comma'>,</span>
+  <span class='symbol'>:MESSAGEFAULT_ERROR_TIME_EXPIRED</span>
+<span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="RKE_ACTION_LOCK-constant" class="">RKE_ACTION_LOCK =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:RKE_ACTION_LOCK</span></pre></dd>
+      
+        <dt id="RKE_ACTION_UNLOCK-constant" class="">RKE_ACTION_UNLOCK =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:RKE_ACTION_UNLOCK</span></pre></dd>
+      
+        <dt id="RKE_ACTION_REMOTE_DRIVE-constant" class="">RKE_ACTION_REMOTE_DRIVE =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:RKE_ACTION_REMOTE_DRIVE</span></pre></dd>
+      
+        <dt id="CLOSURE_MOVE_TYPE_NONE-constant" class="">CLOSURE_MOVE_TYPE_NONE =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:CLOSURE_MOVE_TYPE_NONE</span></pre></dd>
+      
+        <dt id="CLOSURE_MOVE_TYPE_OPEN-constant" class="">CLOSURE_MOVE_TYPE_OPEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:CLOSURE_MOVE_TYPE_OPEN</span></pre></dd>
+      
+        <dt id="CLOSURE_MOVE_TYPE_CLOSE-constant" class="">CLOSURE_MOVE_TYPE_CLOSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:CLOSURE_MOVE_TYPE_CLOSE</span></pre></dd>
+      
+        <dt id="CLOSURE_MOVE_TYPE_MOVE-constant" class="">CLOSURE_MOVE_TYPE_MOVE =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:CLOSURE_MOVE_TYPE_MOVE</span></pre></dd>
+      
+        <dt id="CLOSURE_MOVE_TYPE_STOP-constant" class="">CLOSURE_MOVE_TYPE_STOP =
+          
+        </dt>
+        <dd><pre class="code"><span class='symbol'>:CLOSURE_MOVE_TYPE_STOP</span></pre></dd>
+      
+        <dt id="CLOSURE_VALUES-constant" class="">CLOSURE_VALUES =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>open</span><span class='label_end'>&#39;:</span>  <span class='symbol'>:CLOSURE_MOVE_TYPE_OPEN</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>close</span><span class='label_end'>&#39;:</span> <span class='symbol'>:CLOSURE_MOVE_TYPE_CLOSE</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>move</span><span class='label_end'>&#39;:</span>  <span class='symbol'>:CLOSURE_MOVE_TYPE_MOVE</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>stop</span><span class='label_end'>&#39;:</span>  <span class='symbol'>:CLOSURE_MOVE_TYPE_STOP</span>
+<span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="ACTIONS-constant" class="">ACTIONS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span>
+  <span class='label'>lock:</span>                 <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>unlock:</span>               <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>remote_drive:</span>         <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>front_driver_door:</span>    <span class='const'><span class='object_link'><a href="#CLOSURE_VALUES-constant" title="Tesla::VehicleCommand::CLOSURE_VALUES (constant)">CLOSURE_VALUES</a></span></span><span class='comma'>,</span>
+  <span class='label'>front_passenger_door:</span> <span class='const'><span class='object_link'><a href="#CLOSURE_VALUES-constant" title="Tesla::VehicleCommand::CLOSURE_VALUES (constant)">CLOSURE_VALUES</a></span></span><span class='comma'>,</span>
+  <span class='label'>rear_driver_door:</span>     <span class='const'><span class='object_link'><a href="#CLOSURE_VALUES-constant" title="Tesla::VehicleCommand::CLOSURE_VALUES (constant)">CLOSURE_VALUES</a></span></span><span class='comma'>,</span>
+  <span class='label'>rear_passenger_door:</span>  <span class='const'><span class='object_link'><a href="#CLOSURE_VALUES-constant" title="Tesla::VehicleCommand::CLOSURE_VALUES (constant)">CLOSURE_VALUES</a></span></span><span class='comma'>,</span>
+  <span class='label'>rear_trunk:</span>           <span class='const'><span class='object_link'><a href="#CLOSURE_VALUES-constant" title="Tesla::VehicleCommand::CLOSURE_VALUES (constant)">CLOSURE_VALUES</a></span></span><span class='comma'>,</span>
+  <span class='label'>front_trunk:</span>          <span class='const'><span class='object_link'><a href="#CLOSURE_VALUES-constant" title="Tesla::VehicleCommand::CLOSURE_VALUES (constant)">CLOSURE_VALUES</a></span></span><span class='comma'>,</span>
+  <span class='label'>charge_port:</span>          <span class='const'><span class='object_link'><a href="#CLOSURE_VALUES-constant" title="Tesla::VehicleCommand::CLOSURE_VALUES (constant)">CLOSURE_VALUES</a></span></span><span class='comma'>,</span>
+  <span class='label'>tonneau:</span>              <span class='const'><span class='object_link'><a href="#CLOSURE_VALUES-constant" title="Tesla::VehicleCommand::CLOSURE_VALUES (constant)">CLOSURE_VALUES</a></span></span><span class='comma'>,</span>
+<span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="ALIASES-constant" class="">ALIASES =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#session-instance_method" title="#session (instance method)">#<strong>session</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute session.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#build_call-class_method" title="build_call (class method)">.<strong>build_call</strong>(command)  &#x21d2; Array </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Class method to build a methods and arguments based on the specified full command.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#command-class_method" title="command (class method)">.<strong>command</strong>(tesla_api, vin, command, logger: nil)  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Class method to call a car service command.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#list_commands-class_method" title="list_commands (class method)">.<strong>list_commands</strong>  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Class method to list supported commands.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#valid_command%3F-class_method" title="valid_command? (class method)">.<strong>valid_command?</strong>(command)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Class method to check if the supplied command is valid.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#action-instance_method" title="#action (instance method)">#<strong>action</strong>(action_name)  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Resolves a named VCSEC action to the protobuf enum/value expected by the RKE action builder.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close_charge_port-instance_method" title="#close_charge_port (instance method)">#<strong>close_charge_port</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC command that closes the charge-port door.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close_frunk-instance_method" title="#close_frunk (instance method)">#<strong>close_frunk</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC command that closes the front-trunk closure.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#close_trunk-instance_method" title="#close_trunk (instance method)">#<strong>close_trunk</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC command that closes the trunk closure.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#closure-instance_method" title="#closure (instance method)">#<strong>closure</strong>(closure_name, move_type_name)  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Resolves a closure name and move type into the VCSEC closure protobuf values used by closure commands.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#door_lock-instance_method" title="#door_lock (instance method)">#<strong>door_lock</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC remote-key lock action to the vehicle and returns the decoded command result.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#door_unlock-instance_method" title="#door_unlock (instance method)">#<strong>door_unlock</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC remote-key unlock action to the vehicle and returns the decoded command result.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#establish_session-instance_method" title="#establish_session (instance method)">#<strong>establish_session</strong>  &#x21d2; Tesla::Session </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Performs the VCSEC session handshake, derives the session key from the vehicle public key, validates the returned SessionInfo authentication data, and installs the resulting session state.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(vin:, private_key:, transport:, protobuf_adapter:, session_cache: nil, logger: nil)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Initializes a VCSEC executor with the application keypair, vehicle identity, Fleet transport, protobuf adapter, optional persistent session cache, and sanitized logger.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open_charge_port-instance_method" title="#open_charge_port (instance method)">#<strong>open_charge_port</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC command that opens the charge-port door.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open_frunk-instance_method" title="#open_frunk (instance method)">#<strong>open_frunk</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC command that opens the front-trunk closure.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open_trunk-instance_method" title="#open_trunk (instance method)">#<strong>open_trunk</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC command that opens the trunk closure.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remote_drive-instance_method" title="#remote_drive (instance method)">#<strong>remote_drive</strong>  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends the VCSEC remote-drive action requested by the caller.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_authenticated_command-instance_method" title="#send_authenticated_command (instance method)">#<strong>send_authenticated_command</strong>(unsigned_message, retry_on_sync_error: true)  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Builds and sends a VCSEC authenticated RoutableMessage, verifies/decrypts the response, and retries once after synchronizing session state when the vehicle reports a recoverable session fault.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_closure_move-instance_method" title="#send_closure_move (instance method)">#<strong>send_closure_move</strong>(**closures)  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Builds one or more closure move operations and sends them as an authenticated VCSEC command.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_rke_action-instance_method" title="#send_rke_action (instance method)">#<strong>send_rke_action</strong>(action)  &#x21d2; VCSEC::FromVCSECMessage, ... </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Builds an RKEAction protobuf for the requested action and sends it through the authenticated VCSEC command path.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(vin:, private_key:, transport:, protobuf_adapter:, session_cache: nil, logger: nil)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Initializes a VCSEC executor with the application keypair, vehicle identity, Fleet transport, protobuf adapter, optional persistent session cache, and sanitized logger.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 201</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span>
+  <span class='label'>vin:</span><span class='comma'>,</span>
+  <span class='label'>private_key:</span><span class='comma'>,</span>
+  <span class='label'>transport:</span><span class='comma'>,</span>
+  <span class='label'>protobuf_adapter:</span><span class='comma'>,</span>
+  <span class='label'>session_cache:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>logger:</span> <span class='kw'>nil</span>
+<span class='rparen'>)</span>
+  <span class='ivar'>@vin</span>             <span class='op'>=</span> <span class='id identifier rubyid_vin'>vin</span>
+  <span class='ivar'>@private_key</span>     <span class='op'>=</span> <span class='id identifier rubyid_private_key'>private_key</span>
+  <span class='ivar'>@transport</span>       <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span>
+  <span class='ivar'>@protobuf</span>        <span class='op'>=</span> <span class='id identifier rubyid_protobuf_adapter'>protobuf_adapter</span>
+  <span class='ivar'>@session_cache</span>   <span class='op'>=</span> <span class='id identifier rubyid_session_cache'>session_cache</span>
+  <span class='ivar'>@logger</span>          <span class='op'>=</span> <span class='id identifier rubyid_logger'>logger</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="SafeLogger.html" title="Tesla::SafeLogger (class)">SafeLogger</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SafeLogger.html#initialize-instance_method" title="Tesla::SafeLogger#initialize (method)">new</a></span></span>
+
+  <span class='ivar'>@session</span>         <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@routing_address</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@command_mutex</span>   <span class='op'>=</span> <span class='const'>Mutex</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="session-instance_method">
+  
+    #<strong>session</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute session.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_session'>session</span>
+  <span class='ivar'>@session</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="build_call-class_method">
+  
+    .<strong>build_call</strong>(command)  &#x21d2; <tt>Array</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Class method to build a methods and arguments based on the specified full command.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>command</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>User supplied command</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>method [Symbol], kwargs [Hash]</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RuntimeError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Command not formatted correctly</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 132</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_build_call'>build_call</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_matches'>matches</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A(\w+)(:(.*)){0,1}\z</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid command format \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_matches'>matches</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='id identifier rubyid_matches'>matches</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#ALIASES-constant" title="Tesla::VehicleCommand::ALIASES (constant)">ALIASES</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="#ALIASES-constant" title="Tesla::VehicleCommand::ALIASES (constant)">ALIASES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_param'>param</span>  <span class='op'>=</span> <span class='id identifier rubyid_matches'>matches</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid command name \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="#ACTIONS-constant" title="Tesla::VehicleCommand::ACTIONS (constant)">ACTIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_possible_values'>possible_values</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#ACTIONS-constant" title="Tesla::VehicleCommand::ACTIONS (constant)">ACTIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_possible_values'>possible_values</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_formatted_value'>formatted_value</span> <span class='op'>=</span> <span class='kw'>nil</span>
+    <span class='kw'>unless</span> <span class='id identifier rubyid_param'>param</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot; does not take a value</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_formatted_value'>formatted_value</span> <span class='op'>=</span> <span class='id identifier rubyid_possible_values'>possible_values</span><span class='lbracket'>[</span><span class='id identifier rubyid_param'>param</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_formatted_value'>formatted_value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid value for \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot; (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_param'>param</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_formatted_value'>formatted_value</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="command-class_method">
+  
+    .<strong>command</strong>(tesla_api, vin, command, logger: nil)  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Class method to call a car service command.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>tesla_api</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../TeslaAPI.html" title="TeslaAPI (class)">TeslaAPI</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>TeslaAPI instance</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>vin</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>VIN associated with request</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>command</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Command to run</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>logger</span>
+      
+      
+        <span class='type'>(<tt>Logger</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Logger to use</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Results of method called</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RuntimeError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If any problems encountered running command</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 169</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='id identifier rubyid_tesla_api'>tesla_api</span><span class='comma'>,</span> <span class='id identifier rubyid_vin'>vin</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='label'>logger:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_build_call'>build_call</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_private_key_file'>private_key_file</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Config.html" title="Config (class)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_config_file'><span class='object_link'><a href="../Config.html#find_config_file-class_method" title="Config.find_config_file (method)">find_config_file</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>private-key.pem</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_private_key'>private_key</span>      <span class='op'>=</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>PKey</span><span class='op'>::</span><span class='const'>EC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_private_key_file'>private_key_file</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_transport'>transport</span>        <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FleetTransport.html" title="Tesla::FleetTransport (class)">FleetTransport</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FleetTransport.html#initialize-instance_method" title="Tesla::FleetTransport#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>tesla_api:</span> <span class='id identifier rubyid_tesla_api'>tesla_api</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_protobuf'>protobuf</span>         <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtobufAdapter.html" title="Tesla::ProtobufAdapter (class)">ProtobufAdapter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="ProtobufAdapter.html#initialize-instance_method" title="Tesla::ProtobufAdapter#initialize (method)">new</a></span></span>
+
+  <span class='id identifier rubyid_vehicle_command'>vehicle_command</span> <span class='op'>=</span>
+    <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Tesla::VehicleCommand (class)">VehicleCommand</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Tesla::VehicleCommand#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+      <span class='label'>vin:</span>              <span class='id identifier rubyid_vin'>vin</span><span class='comma'>,</span>
+      <span class='label'>private_key:</span>      <span class='id identifier rubyid_private_key'>private_key</span><span class='comma'>,</span>
+      <span class='label'>transport:</span>        <span class='id identifier rubyid_transport'>transport</span><span class='comma'>,</span>
+      <span class='label'>protobuf_adapter:</span> <span class='id identifier rubyid_protobuf'>protobuf</span><span class='comma'>,</span>
+      <span class='label'>logger:</span>           <span class='id identifier rubyid_logger'>logger</span>
+    <span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_vehicle_command'>vehicle_command</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_vehicle_command'>vehicle_command</span><span class='period'>.</span><span class='id identifier rubyid_closure'>closure</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="list_commands-class_method">
+  
+    .<strong>list_commands</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Class method to list supported commands.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>] Array of supported commands</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 98</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_list_commands'>list_commands</span>
+  <span class='id identifier rubyid_commands'>commands</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='const'><span class='object_link'><a href="#ACTIONS-constant" title="Tesla::VehicleCommand::ACTIONS (constant)">ACTIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_param'>param</span><span class='op'>|</span>
+    <span class='id identifier rubyid_command'>command</span>  <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>unless</span> <span class='id identifier rubyid_param'>param</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_command'>command</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_command'>command</span> <span class='op'>+=</span> <span class='id identifier rubyid_param'>param</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>|</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_commands'>commands</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_command'>command</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_commands'>commands</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="valid_command?-class_method">
+  
+    .<strong>valid_command?</strong>(command)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Class method to check if the supplied command is valid.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>command</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Command to check</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether command exists</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+117
+118
+119
+120
+121
+122
+123</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 117</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_valid_command?'>valid_command?</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_matches'>matches</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A(\w+)(:(.*)){0,1}\z</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_matches'>matches</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='id identifier rubyid_matches'>matches</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#ALIASES-constant" title="Tesla::VehicleCommand::ALIASES (constant)">ALIASES</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="#ALIASES-constant" title="Tesla::VehicleCommand::ALIASES (constant)">ALIASES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="#ACTIONS-constant" title="Tesla::VehicleCommand::ACTIONS (constant)">ACTIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="action-instance_method">
+  
+    #<strong>action</strong>(action_name)  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Resolves a named VCSEC action to the protobuf enum/value expected by the RKE action builder.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>action_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+321
+322
+323
+324
+325
+326
+327
+328
+329</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 321</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_action'>action</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_var_name'>var_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Tesla::VehicleCommand::RKE_ACTION_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action_name'>action_name</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_rke_action'>rke_action</span> <span class='op'>=</span> <span class='const'>Object</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_var_name'>var_name</span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'>NameError</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid action name \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action_name'>action_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>cause:</span> <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_send_rke_action'>send_rke_action</span><span class='lparen'>(</span><span class='id identifier rubyid_rke_action'>rke_action</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="close_charge_port-instance_method">
+  
+    #<strong>close_charge_port</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC command that closes the charge-port door.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+431
+432
+433
+434
+435</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 431</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_close_charge_port'>close_charge_port</span>
+  <span class='id identifier rubyid_send_closure_move'>send_closure_move</span><span class='lparen'>(</span>
+    <span class='label'>charge_port:</span> <span class='symbol'>:CLOSURE_MOVE_TYPE_CLOSE</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="close_frunk-instance_method">
+  
+    #<strong>close_frunk</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC command that closes the front-trunk closure.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+411
+412
+413
+414
+415</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 411</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_close_frunk'>close_frunk</span>
+  <span class='id identifier rubyid_send_closure_move'>send_closure_move</span><span class='lparen'>(</span>
+    <span class='label'>front_trunk:</span> <span class='symbol'>:CLOSURE_MOVE_TYPE_CLOSE</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="close_trunk-instance_method">
+  
+    #<strong>close_trunk</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC command that closes the trunk closure.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+391
+392
+393
+394
+395</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 391</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_close_trunk'>close_trunk</span>
+  <span class='id identifier rubyid_send_closure_move'>send_closure_move</span><span class='lparen'>(</span>
+    <span class='label'>rear_trunk:</span> <span class='symbol'>:CLOSURE_MOVE_TYPE_CLOSE</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="closure-instance_method">
+  
+    #<strong>closure</strong>(closure_name, move_type_name)  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Resolves a closure name and move type into the VCSEC closure protobuf values used by closure commands.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>closure_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>move_type_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 338</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_closure'>closure</span><span class='lparen'>(</span><span class='id identifier rubyid_closure_name'>closure_name</span><span class='comma'>,</span> <span class='id identifier rubyid_move_type_name'>move_type_name</span><span class='rparen'>)</span>
+  <span class='comment'># Handle move_type_name being a string or a label that may or may not
+</span>  <span class='comment'># include CLOSURE_MOVE_TYPE_ at the beginning.
+</span>  <span class='id identifier rubyid_short_move_type'>short_move_type</span> <span class='op'>=</span> <span class='id identifier rubyid_move_type_name'>move_type_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>CLOSURE_MOVE_TYPE_</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span>
+  <span class='id identifier rubyid_var_name'>var_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Tesla::VehicleCommand::CLOSURE_MOVE_TYPE_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_short_move_type'>short_move_type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_move_type'>move_type</span> <span class='op'>=</span> <span class='const'>Object</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_var_name'>var_name</span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'>NameError</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid movement type \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_move_type_name'>move_type_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>cause:</span> <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_send_closure_move'>send_closure_move</span><span class='lparen'>(</span><span class='id identifier rubyid_closure_name'>closure_name</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_move_type'>move_type</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="door_lock-instance_method">
+  
+    #<strong>door_lock</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC remote-key lock action to the vehicle and returns the decoded command result.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+356
+357
+358</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 356</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_door_lock'>door_lock</span>
+  <span class='id identifier rubyid_send_rke_action'>send_rke_action</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#RKE_ACTION_LOCK-constant" title="Tesla::VehicleCommand::RKE_ACTION_LOCK (constant)">RKE_ACTION_LOCK</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="door_unlock-instance_method">
+  
+    #<strong>door_unlock</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC remote-key unlock action to the vehicle and returns the decoded command result.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+365
+366
+367</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 365</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_door_unlock'>door_unlock</span>
+  <span class='id identifier rubyid_send_rke_action'>send_rke_action</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#RKE_ACTION_UNLOCK-constant" title="Tesla::VehicleCommand::RKE_ACTION_UNLOCK (constant)">RKE_ACTION_UNLOCK</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="establish_session-instance_method">
+  
+    #<strong>establish_session</strong>  &#x21d2; <tt><span class='object_link'><a href="Session.html" title="Tesla::Session (class)">Tesla::Session</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Performs the VCSEC session handshake, derives the session key from the vehicle public key, validates the returned SessionInfo authentication data, and installs the resulting session state.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Session.html" title="Tesla::Session (class)">Tesla::Session</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 539</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_establish_session'>establish_session</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session_establishing</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_local_time'>local_time</span>      <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='id identifier rubyid_routing_address'>routing_address</span> <span class='op'>=</span> <span class='const'>SecureRandom</span><span class='period'>.</span><span class='id identifier rubyid_random_bytes'>random_bytes</span><span class='lparen'>(</span><span class='int'>16</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_request_uuid'>request_uuid</span>    <span class='op'>=</span> <span class='const'>SecureRandom</span><span class='period'>.</span><span class='id identifier rubyid_random_bytes'>random_bytes</span><span class='lparen'>(</span><span class='int'>16</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_build_session_info_request'>build_session_info_request</span><span class='lparen'>(</span>
+    <span class='label'>domain:</span>          <span class='const'><span class='object_link'><a href="#DOMAIN_VEHICLE_SECURITY-constant" title="Tesla::VehicleCommand::DOMAIN_VEHICLE_SECURITY (constant)">DOMAIN_VEHICLE_SECURITY</a></span></span><span class='comma'>,</span>
+    <span class='label'>routing_address:</span> <span class='id identifier rubyid_routing_address'>routing_address</span><span class='comma'>,</span>
+    <span class='label'>public_key:</span>      <span class='const'><span class='object_link'><a href="Crypto.html" title="Tesla::Crypto (module)">Crypto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encoded_public_key'><span class='object_link'><a href="Crypto.html#encoded_public_key-class_method" title="Tesla::Crypto.encoded_public_key (method)">encoded_public_key</a></span></span><span class='lparen'>(</span><span class='ivar'>@private_key</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='label'>uuid:</span>            <span class='id identifier rubyid_request_uuid'>request_uuid</span>
+  <span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@transport</span><span class='period'>.</span><span class='id identifier rubyid_signed_command'>signed_command</span><span class='lparen'>(</span>
+    <span class='label'>vin:</span> <span class='ivar'>@vin</span><span class='comma'>,</span>
+    <span class='label'>routable_message:</span>
+      <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_strict_encode64'>strict_encode64</span><span class='lparen'>(</span><span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_encode_routable'>encode_routable</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='rparen'>)</span>
+
+  <span class='kw'>unless</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>signed command response is missing</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_encoded_response'>encoded_response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:response</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>response</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+
+  <span class='kw'>unless</span> <span class='id identifier rubyid_encoded_response'>encoded_response</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_encoded_response'>encoded_response</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>signed command response is missing response field</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_response_bytes'>response_bytes</span> <span class='op'>=</span>
+    <span class='kw'>begin</span>
+      <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_strict_decode64'>strict_decode64</span><span class='lparen'>(</span><span class='id identifier rubyid_encoded_response'>encoded_response</span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='const'>ArgumentError</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>signed command response contains invalid base64</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_response_message'>response_message</span> <span class='op'>=</span> <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_decode_routable'>decode_routable</span><span class='lparen'>(</span><span class='id identifier rubyid_response_bytes'>response_bytes</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_actual_tag'>actual_tag</span>       <span class='op'>=</span> <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_session_info_tag'>session_info_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_response_message'>response_message</span><span class='rparen'>)</span>
+
+  <span class='kw'>unless</span> <span class='id identifier rubyid_actual_tag'>actual_tag</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session establishment response is missing authentication tag</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_session_info_bytes'>session_info_bytes</span> <span class='op'>=</span> <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_session_info_bytes'>session_info_bytes</span><span class='lparen'>(</span><span class='id identifier rubyid_response_message'>response_message</span><span class='rparen'>)</span>
+
+  <span class='kw'>unless</span> <span class='id identifier rubyid_session_info_bytes'>session_info_bytes</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session establishment response is missing session info</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_session_info'>session_info</span> <span class='op'>=</span> <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_decode_session_info'>decode_session_info</span><span class='lparen'>(</span><span class='id identifier rubyid_session_info_bytes'>session_info_bytes</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_vehicle_public_key'>vehicle_public_key</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Crypto.html" title="Tesla::Crypto (module)">Crypto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_public_key_from_bytes'><span class='object_link'><a href="Crypto.html#public_key_from_bytes-class_method" title="Tesla::Crypto.public_key_from_bytes (method)">public_key_from_bytes</a></span></span><span class='lparen'>(</span>
+    <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_session_public_key'>session_public_key</span><span class='lparen'>(</span><span class='id identifier rubyid_session_info'>session_info</span><span class='rparen'>)</span>
+  <span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_session_key'>session_key</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Crypto.html" title="Tesla::Crypto (module)">Crypto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_session_key'><span class='object_link'><a href="Crypto.html#session_key-class_method" title="Tesla::Crypto.session_key (method)">session_key</a></span></span><span class='lparen'>(</span><span class='ivar'>@private_key</span><span class='comma'>,</span> <span class='id identifier rubyid_vehicle_public_key'>vehicle_public_key</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_expected_tag'>expected_tag</span> <span class='op'>=</span> <span class='id identifier rubyid_session_info_tag'>session_info_tag</span><span class='lparen'>(</span>
+    <span class='label'>session_info_bytes:</span> <span class='id identifier rubyid_session_info_bytes'>session_info_bytes</span><span class='comma'>,</span>
+    <span class='label'>session_key:</span>        <span class='id identifier rubyid_session_key'>session_key</span><span class='comma'>,</span>
+    <span class='label'>challenge:</span>          <span class='id identifier rubyid_request_uuid'>request_uuid</span>
+  <span class='rparen'>)</span>
+
+  <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="Crypto.html" title="Tesla::Crypto (module)">Crypto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_secure_compare'><span class='object_link'><a href="Crypto.html#secure_compare-class_method" title="Tesla::Crypto.secure_compare (method)">secure_compare</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_expected_tag'>expected_tag</span><span class='comma'>,</span> <span class='id identifier rubyid_actual_tag'>actual_tag</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="AuthenticationError.html" title="Tesla::AuthenticationError (class)">AuthenticationError</a></span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid session info authentication tag</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='ivar'>@routing_address</span> <span class='op'>=</span> <span class='id identifier rubyid_routing_address'>routing_address</span>
+
+  <span class='ivar'>@session</span> <span class='op'>=</span>
+    <span class='const'><span class='object_link'><a href="Session.html" title="Tesla::Session (class)">Session</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Session.html#initialize-instance_method" title="Tesla::Session#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+      <span class='label'>private_key:</span>        <span class='ivar'>@private_key</span><span class='comma'>,</span>
+      <span class='label'>vehicle_public_key:</span> <span class='id identifier rubyid_vehicle_public_key'>vehicle_public_key</span><span class='comma'>,</span>
+      <span class='label'>session_key:</span>        <span class='id identifier rubyid_session_key'>session_key</span><span class='comma'>,</span>
+      <span class='label'>epoch:</span>              <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_session_epoch'>session_epoch</span><span class='lparen'>(</span><span class='id identifier rubyid_session_info'>session_info</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='label'>counter:</span>            <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_session_counter'>session_counter</span><span class='lparen'>(</span><span class='id identifier rubyid_session_info'>session_info</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='label'>clock_time:</span>         <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_session_clock_time'>session_clock_time</span><span class='lparen'>(</span><span class='id identifier rubyid_session_info'>session_info</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='label'>routing_address:</span>    <span class='id identifier rubyid_routing_address'>routing_address</span><span class='comma'>,</span>
+      <span class='label'>local_time:</span>         <span class='id identifier rubyid_local_time'>local_time</span>
+    <span class='rparen'>)</span>
+
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session_established</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>counter:</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_current_counter'>current_counter</span>
+    <span class='rparen'>)</span>
+
+  <span class='ivar'>@session_cache</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span><span class='lparen'>(</span><span class='ivar'>@session</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@session_cache</span>
+
+  <span class='ivar'>@session</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open_charge_port-instance_method">
+  
+    #<strong>open_charge_port</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC command that opens the charge-port door.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+421
+422
+423
+424
+425</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 421</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_open_charge_port'>open_charge_port</span>
+  <span class='id identifier rubyid_send_closure_move'>send_closure_move</span><span class='lparen'>(</span>
+    <span class='label'>charge_port:</span> <span class='symbol'>:CLOSURE_MOVE_TYPE_OPEN</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open_frunk-instance_method">
+  
+    #<strong>open_frunk</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC command that opens the front-trunk closure.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+401
+402
+403
+404
+405</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 401</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_open_frunk'>open_frunk</span>
+  <span class='id identifier rubyid_send_closure_move'>send_closure_move</span><span class='lparen'>(</span>
+    <span class='label'>front_trunk:</span> <span class='symbol'>:CLOSURE_MOVE_TYPE_OPEN</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open_trunk-instance_method">
+  
+    #<strong>open_trunk</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC command that opens the trunk closure.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+381
+382
+383
+384
+385</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 381</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_open_trunk'>open_trunk</span>
+  <span class='id identifier rubyid_send_closure_move'>send_closure_move</span><span class='lparen'>(</span>
+    <span class='label'>rear_trunk:</span> <span class='symbol'>:CLOSURE_MOVE_TYPE_OPEN</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remote_drive-instance_method">
+  
+    #<strong>remote_drive</strong>  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends the VCSEC remote-drive action requested by the caller.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+373
+374
+375</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 373</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remote_drive'>remote_drive</span>
+  <span class='id identifier rubyid_send_rke_action'>send_rke_action</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#RKE_ACTION_REMOTE_DRIVE-constant" title="Tesla::VehicleCommand::RKE_ACTION_REMOTE_DRIVE (constant)">RKE_ACTION_REMOTE_DRIVE</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_authenticated_command-instance_method">
+  
+    #<strong>send_authenticated_command</strong>(unsigned_message, retry_on_sync_error: true)  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Builds and sends a VCSEC authenticated RoutableMessage, verifies/decrypts the response, and retries once after synchronizing session state when the vehicle reports a recoverable session fault.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>unsigned_message</span>
+      
+      
+        <span class='type'>(<tt>VCSEC::UnsignedMessage</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>retry_on_sync_error</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 232</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_authenticated_command'>send_authenticated_command</span><span class='lparen'>(</span><span class='id identifier rubyid_unsigned_message'>unsigned_message</span><span class='comma'>,</span> <span class='label'>retry_on_sync_error:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_command_bytes'>command_bytes</span> <span class='op'>=</span> <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_encode_unsigned_message'>encode_unsigned_message</span><span class='lparen'>(</span><span class='id identifier rubyid_unsigned_message'>unsigned_message</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@session_cache</span>
+    <span class='ivar'>@session</span> <span class='op'>=</span>
+      <span class='ivar'>@session_cache</span><span class='period'>.</span><span class='id identifier rubyid_reserve_counter'>reserve_counter</span><span class='lparen'>(</span>
+        <span class='label'>private_key:</span> <span class='ivar'>@private_key</span><span class='comma'>,</span>
+        <span class='label'>session:</span>     <span class='ivar'>@session</span>
+      <span class='rparen'>)</span>
+
+    <span class='ivar'>@routing_address</span> <span class='op'>=</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_routing_address'>routing_address</span>
+  <span class='kw'>else</span>
+    <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_advance_counter'>advance_counter</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='id identifier rubyid_build_authenticated_routable'>build_authenticated_routable</span><span class='lparen'>(</span><span class='id identifier rubyid_command_bytes'>command_bytes</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span>
+    <span class='ivar'>@transport</span><span class='period'>.</span><span class='id identifier rubyid_signed_command'>signed_command</span><span class='lparen'>(</span>
+      <span class='label'>vin:</span> <span class='ivar'>@vin</span><span class='comma'>,</span>
+      <span class='label'>routable_message:</span>
+        <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_strict_encode64'>strict_encode64</span><span class='lparen'>(</span>
+          <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_encode_routable'>encode_routable</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:routable</span><span class='rparen'>)</span><span class='rparen'>)</span>
+        <span class='rparen'>)</span>
+    <span class='rparen'>)</span>
+
+  <span class='kw'>unless</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>signed command response is missing</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_encoded_response'>encoded_response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:response</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>response</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+
+  <span class='kw'>unless</span> <span class='id identifier rubyid_encoded_response'>encoded_response</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_encoded_response'>encoded_response</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>signed command response is missing response field</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_response_bytes'>response_bytes</span> <span class='op'>=</span>
+    <span class='kw'>begin</span>
+      <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_strict_decode64'>strict_decode64</span><span class='lparen'>(</span><span class='id identifier rubyid_encoded_response'>encoded_response</span><span class='rparen'>)</span>
+    <span class='kw'>rescue</span> <span class='const'>ArgumentError</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>signed command response contains invalid base64</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_response_message'>response_message</span> <span class='op'>=</span> <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_decode_routable'>decode_routable</span><span class='lparen'>(</span><span class='id identifier rubyid_response_bytes'>response_bytes</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_fault'>fault</span>            <span class='op'>=</span> <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_signed_message_fault'>signed_message_fault</span><span class='lparen'>(</span><span class='id identifier rubyid_response_message'>response_message</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_fault'>fault</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_fault'>fault</span> <span class='op'>!=</span> <span class='symbol'>:MESSAGEFAULT_ERROR_NONE</span>
+    <span class='id identifier rubyid_recovered'>recovered</span> <span class='op'>=</span>
+      <span class='id identifier rubyid_recover_from_session_info'>recover_from_session_info</span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_response_message'>response_message</span><span class='comma'>,</span>
+        <span class='label'>request_uuid:</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:request_uuid</span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='label'>fault:</span>        <span class='id identifier rubyid_fault'>fault</span>
+      <span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_retry_on_sync_error'>retry_on_sync_error</span> <span class='op'>&amp;&amp;</span> <span class='const'><span class='object_link'><a href="#RECOVERABLE_FAULTS-constant" title="Tesla::VehicleCommand::RECOVERABLE_FAULTS (constant)">RECOVERABLE_FAULTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_fault'>fault</span><span class='rparen'>)</span>
+      <span class='kw'>unless</span> <span class='id identifier rubyid_recovered'>recovered</span>
+        <span class='ivar'>@session</span>         <span class='op'>=</span> <span class='kw'>nil</span>
+        <span class='ivar'>@routing_address</span> <span class='op'>=</span> <span class='kw'>nil</span>
+
+        <span class='ivar'>@session_cache</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>if</span> <span class='ivar'>@session_cache</span>
+      <span class='kw'>end</span>
+
+      <span class='id identifier rubyid_ensure_session'>ensure_session</span>
+
+      <span class='kw'>return</span> <span class='id identifier rubyid_send_authenticated_command'>send_authenticated_command</span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_unsigned_message'>unsigned_message</span><span class='comma'>,</span>
+        <span class='label'>retry_on_sync_error:</span> <span class='kw'>false</span>
+      <span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>vehicle returned protocol fault </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_fault'>fault</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_decrypt_response'>decrypt_response</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_response_message'>response_message</span><span class='comma'>,</span>
+    <span class='label'>request_hash:</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:request_hash</span><span class='rparen'>)</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_closure_move-instance_method">
+  
+    #<strong>send_closure_move</strong>(**closures)  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Builds one or more closure move operations and sends them as an authenticated VCSEC command.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>closures</span>
+      
+      
+        <span class='type'>(<tt>Hash{Symbol =&gt; Symbol}</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 489</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_closure_move'>send_closure_move</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_closures'>closures</span><span class='rparen'>)</span>
+  <span class='ivar'>@command_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>command_start</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>action:</span> <span class='symbol'>:CLOSURE_MOVE</span><span class='comma'>,</span>
+      <span class='label'>closures:</span> <span class='id identifier rubyid_closures'>closures</span>
+    <span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_ensure_session'>ensure_session</span>
+
+      <span class='id identifier rubyid_unsigned_message'>unsigned_message</span> <span class='op'>=</span>
+        <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_build_closure_move'>build_closure_move</span><span class='lparen'>(</span>
+          <span class='op'>**</span><span class='id identifier rubyid_closures'>closures</span>
+        <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span>
+        <span class='id identifier rubyid_send_authenticated_command'>send_authenticated_command</span><span class='lparen'>(</span>
+          <span class='id identifier rubyid_unsigned_message'>unsigned_message</span>
+        <span class='rparen'>)</span>
+
+      <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>command_complete</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='label'>action:</span> <span class='symbol'>:CLOSURE_MOVE</span><span class='comma'>,</span>
+        <span class='label'>closures:</span> <span class='id identifier rubyid_closures'>closures</span><span class='comma'>,</span>
+        <span class='label'>counter:</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_current_counter'>current_counter</span>
+      <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_result'>result</span>
+    <span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_error'>error</span>
+      <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>command_failed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='label'>action:</span> <span class='symbol'>:CLOSURE_MOVE</span><span class='comma'>,</span>
+        <span class='label'>closures:</span> <span class='id identifier rubyid_closures'>closures</span><span class='comma'>,</span>
+        <span class='label'>category:</span>
+          <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ErrorClassifier.html" title="Tesla::ErrorClassifier (module)">ErrorClassifier</a></span></span><span class='period'>.</span><span class='id identifier rubyid_classify'><span class='object_link'><a href="ErrorClassifier.html#classify-class_method" title="Tesla::ErrorClassifier.classify (method)">classify</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_error'>error</span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='label'>error:</span> <span class='id identifier rubyid_error'>error</span>
+      <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_rke_action-instance_method">
+  
+    #<strong>send_rke_action</strong>(action)  &#x21d2; <tt>VCSEC::FromVCSECMessage</tt>, ... 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Builds an RKEAction protobuf for the requested action and sends it through the authenticated VCSEC command path.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>action</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>VCSEC::FromVCSECMessage</tt>, <tt>UniversalMessage::RoutableMessage</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/vehicle_command.rb', line 443</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_rke_action'>send_rke_action</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span>
+  <span class='ivar'>@command_mutex</span><span class='period'>.</span><span class='id identifier rubyid_synchronize'>synchronize</span> <span class='kw'>do</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>command_start</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>action:</span> <span class='id identifier rubyid_action'>action</span>
+    <span class='rparen'>)</span>
+
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_ensure_session'>ensure_session</span>
+
+      <span class='id identifier rubyid_unsigned_message'>unsigned_message</span> <span class='op'>=</span>
+        <span class='ivar'>@protobuf</span><span class='period'>.</span><span class='id identifier rubyid_build_rke_action'>build_rke_action</span><span class='lparen'>(</span>
+          <span class='id identifier rubyid_action'>action</span>
+        <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span>
+        <span class='id identifier rubyid_send_authenticated_command'>send_authenticated_command</span><span class='lparen'>(</span>
+          <span class='id identifier rubyid_unsigned_message'>unsigned_message</span>
+        <span class='rparen'>)</span>
+
+      <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>command_complete</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='label'>action:</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span>
+        <span class='label'>counter:</span> <span class='ivar'>@session</span><span class='period'>.</span><span class='id identifier rubyid_current_counter'>current_counter</span>
+      <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_result'>result</span>
+    <span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_error'>error</span>
+      <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>command_failed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='label'>action:</span>   <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span>
+        <span class='label'>category:</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ErrorClassifier.html" title="Tesla::ErrorClassifier (module)">ErrorClassifier</a></span></span><span class='period'>.</span><span class='id identifier rubyid_classify'><span class='object_link'><a href="ErrorClassifier.html#classify-class_method" title="Tesla::ErrorClassifier.classify (method)">classify</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_error'>error</span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='label'>error:</span>    <span class='id identifier rubyid_error'>error</span>
+      <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.1.2).
+</div>
+
+    </div>
+  </body>
+</html>

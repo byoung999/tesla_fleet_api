@@ -1,0 +1,4 @@
+version: "3"
+agent:
+    authtoken: _NGROK_AUTH_TOKEN_
+    web_addr: "0.0.0.0:4040"

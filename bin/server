@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PROG_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+cd "$PROG_DIR/.." && exec ruby -w tesla_api_server.rb ${1+"$@"}

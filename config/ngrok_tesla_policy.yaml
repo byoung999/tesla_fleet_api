@@ -1,0 +1,17 @@
+on_http_request:
+  - expressions:
+      - "!req.url.path.startsWith('/.well-known/appspecific')"
+    actions:
+      - type: "restrict-ips"
+        config:
+          enforce: true
+          allow:
+            - "_YOUR_INTERNET_IP_ADDRESS_/32"
+      - type: rate-limit
+        config:
+          name: only allow 100 requests per minute
+          algorithm: sliding_window
+          capacity: 100
+          rate: 60s
+          bucket_key:
+            - conn.client_ip

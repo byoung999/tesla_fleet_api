@@ -1,0 +1,26 @@
+[Unit]
+Description=Run the tesla api server
+Wants=network-online.target
+Wants=tesla_ngrok.service
+After=network-online.target
+After=tesla_ngrok.service
+# Allow at most five starts within 30 seconds.
+StartLimitIntervalSec=30
+StartLimitBurst=5
+
+[Service]
+User=_SERVICE_USER_
+Group=_SERVICE_GROUP_
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=_APP_STATE_DIR_
+WorkingDirectory=_APP_DIR_
+ExecStart=_APP_DIR_/bin/start_server
+Restart=on-failure
+KillMode=control-group
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

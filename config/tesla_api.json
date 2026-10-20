@@ -1,0 +1,7 @@
+{
+  "public_host":     "_YOUR_NGROK_DOMAIN_",
+  "client_id":       "_TESLA_CLIENT_ID_",
+  "client_secret":   "_TESLA_CLIENT_SECRET_",
+  "session_secret":  "_YOUR_SESSION_SECRET_",
+  "vin":             "_TESLA_VIN_"
+}

@@ -1,0 +1,20 @@
+Bridge mqtt:broker:openhab_mqtt "MQTT Broker" [
+  host="_YOUR_MQTT_SERVER_HOSTNAME_",
+  port=1883,
+  username="_YOUR_MQTT_USERNAME_",
+  password="_YOUR_MQTT_PASSWORD_",
+  lwtQos=0,
+  publickeypin=true,
+  keepAlive=60,
+  hostnameValidated=true,
+  secure=false,
+  birthRetain=true,
+  shutdownRetain=true,
+  certificatepin=true,
+  protocol="TCP",
+  qos=0,
+  reconnectTime=60000,
+  mqttVersion="V5",
+  lwtRetain=true,
+  enableDiscovery=true
+]

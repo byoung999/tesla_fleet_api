@@ -1,0 +1,157 @@
+#!/usr/bin/ruby -w
+
+require 'bundler/setup'
+require 'etc'
+require 'getoptlong'
+
+require_relative '../lib/Config'
+require_relative '../lib/TeslaAPI'
+
+#----------------------------------------------------------------------------
+
+$prog = File.basename($0).sub(/\.rb$/, '')
+
+config_file_name = 'tesla_api.json'
+config_dir       = nil
+service_user     = nil
+service_group    = nil
+verbose          = false
+debug            = false
+
+usage = <<-EOF
+#{$prog} [OPTIONS] [ENDPOINTS]
+
+Options:
+    --config-dir=     Location of config files
+    --service-user=   User to run services as
+    --service-group=  Group to run services as
+-v, --verbose         Print verbose output
+-x, --debug           Print debug output
+-h, --help            Print help message
+EOF
+
+begin
+  opts = GetoptLong.new(
+    [ '--config-dir'         , GetoptLong::REQUIRED_ARGUMENT ],
+    [ '--service-user'       , GetoptLong::REQUIRED_ARGUMENT ],
+    [ '--service-group'      , GetoptLong::REQUIRED_ARGUMENT ],
+    [ '--verbose'      , '-v', GetoptLong::NO_ARGUMENT       ],
+    [ '--debug'        , '-x', GetoptLong::NO_ARGUMENT       ],
+    [ '--help'         , '-h', GetoptLong::NO_ARGUMENT       ],
+  )
+
+  opts.each do |opt, arg|
+    case opt
+    when '--config-dir'    then config_dir    = arg
+    when '--service-user'  then service_user  = arg
+    when '--service-group' then service_group = arg
+    when '--verbose'       then verbose       = true
+    when '--debug'         then debug         = true
+    when '--help'
+      puts usage
+      exit 0
+    end
+  end
+rescue GetoptLong::InvalidOption
+  # Already reported, no need for stack trace
+  exit 1
+end
+
+abort "#{$prog}: unexpected arguments\n#{usage}" if ARGV.length > 0
+
+#----------------------------------------------------------------------------
+
+begin
+  tesla = TeslaAPI.new(config_dir, config_file_name)
+rescue RuntimeError => e
+  abort "#{$prog}: #{e.message}"
+end
+
+#----------------------------------------------------------------------------
+
+# See if user exists on server.
+# @param  user [String] User to validate
+# @return [Boolean] User exists
+
+def user_exists?(user)
+  begin
+    Etc.getpwnam(user) ? true : false
+  rescue
+    false
+  end
+end
+
+#----------------------------------------------------------------------------
+
+# See if group exists on server.
+# @param  group [String] Group to validate
+# @return [Boolean] Group exists
+
+def group_exists?(group)
+  begin
+    Etc.getgrnam(group) ? true : false
+  rescue
+    false
+  end
+end
+
+#----------------------------------------------------------------------------
+
+# Run a command.
+# @param verbose [Boolean] Whether or not to print the command
+# @param *cmd [Array] Splat containing command
+
+def run_cmd(verbose, *cmd)
+  puts "cmd = #{cmd.to_s}" if verbose
+  system(*cmd) or abort("command failed: #{(cmd.join(' '))}")
+end
+
+#----------------------------------------------------------------------------
+
+system_dir = '/etc/systemd/system'
+abort 'Unable to deploy on this operating system' unless Dir.exist?(system_dir)
+
+deploy_dir = __dir__ # __dir__ is our deploy directory
+app_dir    = File.expand_path("#{deploy_dir}/..")
+
+app_service_file   = "tesla_api_server.service"
+ngrok_service_file = "tesla_ngrok.service"
+
+# Validate user.  If no user specified and an openhab user is setup, use
+# openhab.  Otherwise, use root.
+service_user ||= tesla.config[:service_user]
+service_user ||= 'root'
+unless user_exists?(service_user)
+  abort "Invalid service user: #{service_user}"
+end
+
+# Validate group.  If no group specified and an openhab group is setup, use
+# openhab.  Otherwise, use root.
+service_group ||= tesla.config[:service_group]
+service_group ||= 'root'
+unless group_exists?(service_group)
+  abort "Invalid service group: #{service_group}"
+end
+
+state_dir = File.expand_path(tesla.config[:state_dir])
+
+# Copy the services to the systemd/system directory after doing substitutions.
+[app_service_file, ngrok_service_file].each do |service_file|
+  service_script = File.read("#{deploy_dir}/#{service_file}")  \
+                   .gsub(/\b_APP_DIR_\b/      , app_dir      ) \
+                   .gsub(/\b_SERVICE_USER_\b/ , service_user ) \
+                   .gsub(/\b_SERVICE_GROUP_\b/, service_group) \
+                   .gsub(/\b_APP_STATE_DIR_\b/, state_dir    )
+  puts "service script for #{service_file}:\n\n#{service_script}\n" if debug
+  target_file = "#{system_dir}/#{service_file}"
+  puts "Writing: #{target_file}" if verbose
+  File.write(target_file, service_script, perm: 0644)
+end
+
+# Start the services.
+run_cmd(verbose, 'systemctl', 'daemon-reload')
+['tesla_ngrok', 'tesla_api_server'].each do |service|
+  run_cmd(verbose, 'systemctl', 'enable', service)
+  run_cmd(verbose, 'systemctl', 'stop'  , service)
+  run_cmd(verbose, 'systemctl', 'start' , service)
+end

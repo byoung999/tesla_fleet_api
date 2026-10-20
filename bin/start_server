@@ -1,0 +1,4 @@
+#!/bin/bash
+
+PROG_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+exec "$PROG_DIR/server" -e production

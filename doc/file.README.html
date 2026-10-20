@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.28
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1 id="tesla_fleet_api">tesla_fleet_api</h1>
+
+<p>Provides a command line interface and an authentication server to allow
+access to the Tesla Fleet API.  This can be used to request data and
+send commands to the Tesla Fleet API.  The external requirements are a
+small as possible with the goal of being zero cost.  However, it does
+not directly support the Tesla Fleet Telemetry streaming protocol (which
+requires more extensive server setup and more external requirements).</p>
+
+<h1 id="requirements">Requirements</h1>
+
+<p>The ultimate goal of the scripts is to provide a zero cost mechanism
+to communicate with a Tesla vehicle (now that the Tesla Owner API has
+been shut down).  There are no third party app costs, hosting costs,
+domain costs or API costs.  However, there are a number of requirements
+necessary to achieve this:</p>
+
+<ul>
+<li>If you don&#39;t want to set up a more public server, you must be willing to
+setup a free account with ngrok (or similar service) and open a tunnel to a
+single port to your server.  There will be one file (a public key) that will
+be publicly available and some HTTPS endpoints for OAuth2 that will be
+restricted to your own IP address (i.e. not public accessible).</li>
+<li>You need to keep your requests under the thresholds for free requests for the Tesla
+Fleet API and ngrok.  This is quiet doable with a reasonable polling strategy.
+If you want frequently updated data you can either not poll extremely frequently
+or do intelligent polling where you don&#39;t poll frequently when the car is sleeping
+or doing something less interesting.  In my case, I use when my garage door has
+opened to start polling more frequently and HomeLink (as a presence sensor) to
+determine if my vehicle is parked at home or away from home (which will change to
+polling interval significantly).</li>
+<li>You need to install Ruby on your server.</li>
+</ul>
+
+<h1 id="functions">Functions</h1>
+
+<p>Three programs are provided that do the following:</p>
+
+<ul>
+<li>A CLI tool that allows making requests from the command line.</li>
+<li>An authentication server that provides the OAuth2 communication flow that
+provides an access token needed for the Fleet API endpoints.  The program
+handles refreshing the token so that you only have to log in once.</li>
+<li>A tool to package up vehicle data from the CLI and publish it to MQTT (for
+integration with home automation systems and such).  Note that the script
+only publishes vehicle data received from Tesla.  Commands can&#39;t be
+sent, via MQTT, to Tesla.</li>
+</ul>
+
+<p>Additionally, a Ruby class is available if you want to write your own custom
+programs as opposed to simply using the CLI tool.</p>
+
+<h1 id="use-case">Use case</h1>
+
+<p>In my particular case, I use these scripts to integrate data from my vehicle
+into the OpenHAB home automation system.  Rules in OpenHAB control how
+frequently I poll for data and act upon the data.  I have automations that
+show me my Tesla charge level, report on low tire pressure, let me know when
+the vehicle is coming home and let me know when charging is complete.  The
+rules are provided in the openhab directory as an example.  They can be
+adapted to whatever system you use.</p>
+
+<h1 id="inspiration">Inspiration</h1>
+
+<p>These scripts were inspired by a project created by QC Tesla Guy.  Check out
+his git repo and his YouTube video.  His repo and video shows screenshots of
+the Tesla setup and may help with some of the basic setup details.</p>
+
+<ul>
+<li><a href="https://github.com/qcteslaguy/tesla-fleet-api-demo">https://github.com/qcteslaguy/tesla-fleet-api-demo</a></li>
+<li><a href="https://www.youtube.com/watch?v=qd6MdAgsOrM">https://www.youtube.com/watch?v=qd6MdAgsOrM</a></li>
+</ul>
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<ul>
+<li>Linux or other operating system (instructions are for a Debian based Linux)</li>
+<li>Ruby</li>
+<li>MQTT server (if you choose to use MQTT)</li>
+</ul>
+
+<h1 id="external-services">External services</h1>
+
+<ul>
+<li>Tesla Fleet API account</li>
+<li>ngrok (or other method to provide a public key and OAuth2 endpoints the
+Tesla Fleet API needs)</li>
+</ul>
+
+<h1 id="references">References</h1>
+
+<ul>
+<li><a href="https://developer.tesla.com">https://developer.tesla.com</a></li>
+<li><a href="https://developer.tesla.com/docs/fleet-api">https://developer.tesla.com/docs/fleet-api</a></li>
+<li><a href="https://developer.tesla.com/docs/fleet-api/announcements">https://developer.tesla.com/docs/fleet-api/announcements</a></li>
+<li><a href="https://ngrok.com">https://ngrok.com</a></li>
+</ul>
+
+<h1 id="installation">Installation</h1>
+
+<h2 id="things-to-fill-in">Things to fill in</h2>
+
+<p>In the following instructions and sample files, you will see text like
+<code>_SOME_STRING_</code> (starting and ending with underscore).  Replace this
+with the appropriate value from your setup.</p>
+
+<h2 id="install-application">Install application</h2>
+
+<pre class="code ruby"><code class="ruby">apt install ruby ruby-bundler
+cd to where you want to install the application (such as /usr/local)
+git clone https://tesla_fleet_api.github.com
+cd tesla_fleet_api
+rake bundle
+</code></pre>
+
+<h2 id="create-public-key">Create public key</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_make_keys'>make_keys</span>
+</code></pre>
+
+<h2 id="create-ngrok-account-and-endpoint">Create ngrok account and endpoint</h2>
+
+<pre class="code ruby"><code class="ruby">Go to https://ngrok.com and create an account.
+Where do you want to start? Put your local app on a public URL [Get Started]
+Select Your Authtoken on the left menu
+  Make note of the authtoken shown on this page.
+  Will be referred to as _YOUR_NGROK_AUTHTOKEN_ below
+Select Domains on the left menu
+  Make a note of the domain name listed (something like XXX-XXX-XXX.ngrok-free.dev).
+  It will be referred as _YOUR_NGROK_DOMAIN_ below
+Select Endpoints on the left menu
+  [+ New Endpoint]
+    How will this endpoint be deployed: Cloud Endpoint
+    Where do you want your endpoint to be available: Public
+    Choose your URL: https://_YOUR_NGROK_DOMAIN_
+    Do you want to allow pooling? Don&#39;t allow pooling
+    Do you want to add your own traffic policy? Start with a default traffic policy
+    [Create endpoint]
+</code></pre>
+
+<h2 id="install-and-configure-ngrok">Install and configure ngrok</h2>
+
+<p>See <a href="https://ngrok.com/download">https://ngrok.com/download</a> for the latest installation instructions for
+your operating system.</p>
+
+<pre class="code ruby"><code class="ruby">cd tesla_fleet_api
+
+curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
+  |  sudo tee /etc/apt/trusted.gpg.d/ngrok.asc &gt;/dev/null \
+  &amp;&amp; echo &quot;deb https://ngrok-agent.s3.amazonaws.com bookworm main&quot; \
+  |  sudo tee /etc/apt/sources.list.d/ngrok.list \
+  &amp;&amp; sudo apt update \
+  &amp;&amp; sudo apt install ngrok
+
+ngrok config add-authtoken _YOUR_NGROK_AUTHTOKEN_
+
+cp /home/_YOUR_USER_NAME_/.config/ngrok/ngrok.yml config/ngrok.yaml
+</code></pre>
+
+<p>Optionally, edit config/ngrok.yaml and add the following to the
+agent section to allow monitoring ngrok with a web browser at
+http://<code>_YOUR_INTERNAL_IP_ADDRESS_</code>:4040</p>
+
+<pre class="code ruby"><code class="ruby">web_addr: &quot;0.0.0.0:4040&quot;
+</code></pre>
+
+<p>If you have a static or relatively stable internet IP address provided
+by your ISP, you can limit access, with an ngrok traffic policy, to
+your server&#39;s authentication endpoint.  In that case you will only be
+able to login to your service from a browser inside your home network
+(as opposed to from a mobile network or other external location).
+There are other protections in place to prevent malicious actors.  But,
+this adds an additional safety layer.  If you don&#39;t want to set this up,
+remove the restrict-ips section of the ngrok_tesla_policy.yaml file.</p>
+
+<p>To add the network restriction, edit config/ngrok_tesla_policy.yaml</p>
+
+<ul>
+<li>Replace <code>_YOUR_INTERNET_IP_ADDRESS_</code> with your external IP address.</li>
+</ul>
+
+<p>Test to see if ngrok is working</p>
+
+<pre class="code ruby"><code class="ruby">ngrok http 8089 --config config/ngrok.yaml --traffic-policy-file config/ngrok_tesla_policy.yaml
+</code></pre>
+
+<h2 id="create-tesla-developer-account-and-fleet-api-application">Create tesla developer account and fleet API application</h2>
+
+<pre class="code ruby"><code class="ruby">https://developer.tesla.com
+  Create a developer account
+  Create Fleet API Application
+    Registration
+      Registration Type: Just for me
+    Application Details
+      Application Name: Retrieve Car Data (can’t have Tesla in the name)
+      Application Description: Retrieve Car Data
+      Purpose of Usage: Retrieve Car Data
+      [Next]
+    Client Details
+      OAuth Grant Type: Authorization Code and Machine-to-Machine
+      Allowed Origin URL(s): https://_YOUR_NGROK_DOMAIN_
+      Allowed Redirect URI(s): https://_YOUR_NGROK_DOMAIN_/auth/callback
+      Allowed Returned URL(s) (Optional): 
+      [Next]
+    API &amp; Scopes
+      Fleet API
+        Profile Information
+        Vehicle Information
+        Vehicle Location
+        Vehicle Commands            (select only if you want to send commands)
+        Vehicle Charging Management (select only if you want to manage charging)
+      [Next]
+    Billing Details (Optional, will have $10/month credit)
+      [Skip and Submit]
+</code></pre>
+
+<h2 id="view-your-tesla-client-id-and-client-secret">View your Tesla client ID and client secret</h2>
+
+<pre class="code ruby"><code class="ruby">https://developer.tesla.com/en_US/dashboard
+  Developer Applications
+    &quot;Retrieve Car Data&quot;
+      [View Details]
+ Credentials &amp; APIs:
+   Client ID: _YOUR_TESLA_CLIENT_ID_
+   Client Secret: _YOUR_TESLA_CLIENT_SECRET_
+</code></pre>
+
+<h2 id="add-third-party-virtual-key-to-vehicle">Add third-party virtual key to vehicle</h2>
+
+<ul>
+<li>Go to URL on desktop web browser: <a href="http://tesla.com/_ak/%60%60%60_YOUR_NGROK_DOMAIN_%60%60%60">http://tesla.com/_ak/```_YOUR_NGROK_DOMAIN_```</a></li>
+<li>Ensure tesla app is logged in on phone</li>
+<li>Scan QR code with phone camera
+
+<ul>
+<li>Click scanned link</li>
+<li>Allow third-party access to this vehicle? [Approve]</li>
+</ul></li>
+</ul>
+
+<h2 id="configure-application">Configure application</h2>
+
+<p>Generate a random session secret string to put in the config file (<code>_YOUR_SESSION_SECRET_</code>)</p>
+
+<pre class="code ruby"><code class="ruby">openssl rand -hex 32
+</code></pre>
+
+<p>Edit config/tesla_api.json</p>
+
+<ul>
+<li>Replace all of the <code>_SOME_STRING_</code> strings with values identified above.</li>
+<li>Add any optional settings, as desired.</li>
+</ul>
+
+<p>You need to fill in the following:</p>
+
+<table><thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>public_host</td>
+<td>Host name ngrok provides</td>
+</tr>
+<tr>
+<td>client_id</td>
+<td>Client ID that Tesla provides</td>
+</tr>
+<tr>
+<td>client_secret</td>
+<td>Client secret that Tesla provides</td>
+</tr>
+<tr>
+<td>session_secret</td>
+<td>Session secret (generate with: openssl rand -hex 32)</td>
+</tr>
+<tr>
+<td>vin</td>
+<td>The Tesla VINs for your vehicles (comma separated)</td>
+</tr>
+</tbody></table>
+
+<p>The following optional settings can be made:</p>
+
+<table><thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>local_interface</td>
+<td>127.0.0.1 (use 0.0.0.0 for local network access)</td>
+</tr>
+<tr>
+<td>local_port</td>
+<td>8089</td>
+</tr>
+<tr>
+<td>scopes</td>
+<td>openid offline_access vehicle_device_data vehicle_location user_data vehicle_cmds vehicle_specs</td>
+</tr>
+<tr>
+<td>tesla_email</td>
+<td>E-mail address to validate against E-mail registered with Tesla for account</td>
+</tr>
+<tr>
+<td>state_dir</td>
+<td>&quot;state&quot; directory under application directory (or /var/tmp if not present)</td>
+</tr>
+<tr>
+<td>state_dir_perms</td>
+<td>&quot;0700&quot; (octal numbers must be quoted, might need to be opened wider)</td>
+</tr>
+<tr>
+<td>state_file_perms</td>
+<td>&quot;0600&quot; (octal numbers must be quoted, might need to be opened wider)</td>
+</tr>
+<tr>
+<td>redirect_path</td>
+<td>/auth/callback</td>
+</tr>
+<tr>
+<td>auth_host</td>
+<td>fleet-auth.prd.vn.cloud.tesla.com</td>
+</tr>
+<tr>
+<td>api_host</td>
+<td>fleet-api.prd.na.vn.cloud.tesla.com</td>
+</tr>
+<tr>
+<td>service_user</td>
+<td>root</td>
+</tr>
+<tr>
+<td>service_group</td>
+<td>root</td>
+</tr>
+</tbody></table>
+
+<p>If you are not in North America, you will want to change auth_host
+and api_host to the most appropriate Tesla servers (see the Tesla
+documentation for details).</p>
+
+<p>You can adjust the scope configuration based on what you set up when you set
+up your Tesla developer account.
+(see <a href="https://developer.tesla.com/docs/fleet-api/authentication/overview">https://developer.tesla.com/docs/fleet-api/authentication/overview</a>).</p>
+
+<h2 id="start-services">Start services</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_sudo'>sudo</span> <span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_install_services'>install_services</span>
+</code></pre>
+
+<p>By default, the services will run with user/group of root/root.
+Use a more restrictive user/group (in the config file) as you see fit
+(recommended).  It is important that the user/group can write to the
+state directory (under the application directory or where you configure
+it to be).  If you change user/group or state_dir, in the config file,
+you will need to redeploy the services again.</p>
+
+<h2 id="test-web-server-and-ngrok">Test web server and ngrok</h2>
+
+<p>Go to https://<code>_YOUR_INTERNET_IP_ADDRESS_</code> in a web browser (or use
+the domain name setup in ngrok).  You should be able to log into Tesla
+and see your vehicle&#39;s data.</p>
+
+<p>If you have set local_interface to 0.0.0.0, you can also go to
+http://<code>_YOUR_INTERNAL_IP_ADDRESS_</code>:8089 to test the
+server without going through ngrok.</p>
+
+<h2 id="login-to-tesla">Login to tesla</h2>
+
+<p>To log into Tesla, run the following command and bring up the URL provided
+in a web browser.</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli --login-url
+</code></pre>
+
+<p>Or, have the program open the web browser directly:</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli --login-browser
+</code></pre>
+
+<h2 id="register-partner-application-public-host-name-with-tesla">Register partner application (public host name) with Tesla</h2>
+
+<pre class="code ruby"><code class="ruby">bin/cli --register
+</code></pre>
+
+<h2 id="test-retrieving-data">Test retrieving data</h2>
+
+<pre class="code ruby"><code class="ruby">bin/cli --wake vehicle_data
+</code></pre>
+
+<p>Note: wake is comparatively expensive, only use when really necessary.</p>
+
+<h1 id="cli-examples">CLI examples</h1>
+
+<p>See the Endpoints section at <a href="https://developer.tesla.com/docs/fleet-api">https://developer.tesla.com/docs/fleet-api</a> for a
+complete list of API endpoints and whether they are sent as GET or POST
+requests (DELETE requests are not supported).</p>
+
+<p>Full API call and abbreviated API call that do the same thing.</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli /api/1/vehicles
+bin/cli vehicles
+</code></pre>
+
+<p>Different ways to abbreviate a vehicle data request.  If &quot;&#123;vin&#125;&quot; is in your
+request, your vehicle ID from the config file (or --vehicle-id parameter)
+is substituted.</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli /api/1/vehicle/_YOUR_VEHICLE_ID_/vehicle_data
+bin/cli vehicle/_YOUR_VEHICLE_ID_/vehicle_data
+bin/cli vehicle/{vin}/vehicle_data
+bin/cli vehicle_data
+</code></pre>
+
+<p>Ways to get multiple sets of vehicle data values.</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli &#39;vehicle_data?endpoints=vehicle_state;location_data&#39;
+bin/cli vehicle_state location_data
+</code></pre>
+
+<p>Requesting data for more that one vehicle (still makes 2 API calls).</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli --vehicle_ids=111111111111,222222222222 vehicle_data
+</code></pre>
+
+<p>Return vehicle data in a consolidated JSON hash as opposed to an array of
+individual JSON responses.</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli --consolidated vehicle_state location_data
+</code></pre>
+
+<p>Different ways to send in post data (full JSON, or simple parameters).</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli command/actuate_trunk --post-data=&#39;{&quot;which_trunk&quot;: &quot;front&quot;}&#39;
+bin/cli command/actuate_trunk --post-param=which_trunk:front
+</code></pre>
+
+<p>Although the wake_up endpoint is a POST request, you can call it like any
+other GET request (i.e. with no post data).
+Note that a wake up request takes a few seconds to wake the vehicle up.
+Also note that wake_up requests are more expensive than regular requests
+in the Tesla Fleet API.
+All that said, just use the --wake option instead of wake_up.  This is
+mainly an example of a post request with no data.</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli wake_up --post-data=&#39;{}&#39;
+bin/cli wake_up
+</code></pre>
+
+<h2 id="sending-commands-to-vehicles">Sending commands to vehicles</h2>
+
+<p>Tesla changed the way commands are sent to the vehicle.  Some of
+the examples, above, show the old way via the Fleet REST API
+(i.e. command/actuate_trunk).  The newer, encrypted method, involves
+building up a message and encrypting it.  It is exposed by the cli
+program as follows:</p>
+
+<p>For security actions, you can simply call out the action:</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli lock
+bin/cli unlock
+</code></pre>
+
+<p>For closure actions, you have to indicate what closable device you want
+to change and the action you want it to do:</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli front_trunk:open
+bin/cli rear_trunk:close
+</code></pre>
+
+<p>The closable devices are:</p>
+
+<ul>
+<li>front_driver_door</li>
+<li>front_passenger_door</li>
+<li>rear_driver_door</li>
+<li>rear_passenger_door</li>
+<li>rear_trunk</li>
+<li>front_trunk</li>
+<li>charge_port</li>
+<li>tonneau</li>
+</ul>
+
+<p>The action you can perform on them are:</p>
+
+<ul>
+<li>open</li>
+<li>close</li>
+<li>move</li>
+<li>stop</li>
+</ul>
+
+<p>Only closable devices and actions your vehicle can support are valid.</p>
+
+<p>Added to these, there is a whole series of car service commands to
+perform different actions on a vehicle.  To see a list of all of the
+different types of supported commands:</p>
+
+<pre class="code ruby"><code class="ruby">bin/cli --list
+</code></pre>
+
+<h2 id="mqtt-optional">MQTT (optional)</h2>
+
+<p>Edit config/mqtt.json</p>
+
+<ul>
+<li>Fill in the host and port of your MQTT server along with the username and
+password used to connect to the MQTT server.</li>
+</ul>
+
+<p>You can set the following, additional, options if needed for your MQTT server: </p>
+
+<table><thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tls</td>
+<td>Set to true to use TLS connection (will require certificates)</td>
+</tr>
+<tr>
+<td>key_file</td>
+<td>TLS key file</td>
+</tr>
+<tr>
+<td>crt_file</td>
+<td>TLS crt file</td>
+</tr>
+<tr>
+<td>ca_file</td>
+<td>TLS ca file</td>
+</tr>
+<tr>
+<td>keep_alive</td>
+<td>MQTT keep alive in seconds</td>
+</tr>
+<tr>
+<td>client_id</td>
+<td>ID to uniquely identify client connecting to MQTT server</td>
+</tr>
+</tbody></table>
+
+<p>Run a poll to collect data from vehicle and publish to MQTT (add --wake
+to wake vehicle up if necessary).</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bin'>bin</span><span class='op'>/</span><span class='id identifier rubyid_poll'>poll</span>
+</code></pre>
+
+<p>Don&#39;t poll too often (i.e. every few seconds or minutes) as you might
+use up your free quota for the Tesla Fleet API or ngrok.</p>
+
+<p>For an example of the topics generated, see <a href="openhab/things/tesla_mqtt.things">OpenHAB things</a>.</p>
+
+<h1 id="openhab-optional">OpenHAB (Optional)</h1>
+
+<p>Since I use OpenHAB for my home automation system, I have included
+configuration and rules files for reference.  Even if you don&#39;t use
+OpenHAB, reviewing the files will help see how you can make use of
+these tools.</p>
+
+<p>See <a href="openhab/README.md">OpenHAB overview</a> for an overview of the
+OpenHAB files.</p>
+
+<h1 id="notes">Notes</h1>
+
+<p>The Tesla auth token generated by the login process will be stored in
+the state directory under the application directory.  The Tesla auth
+token will be refreshed as necessary. Make sure the state directory is
+writable by the user and service running the application.</p>
+
+<p>If you poll for data every few minutes 24/7, you may use up your free
+quota with Tesla and ngrok.  Try to poll more efficiently (like only
+when the vehicle is being driven).</p>
+
+<p>See <a href="openhab/automation/ruby/tesla_polling.rb">openhab/automation/ruby/tesla_polling.rb</a> for examples on how to
+efficiently poll for data.  You may need to adjust the various polling
+intervals based on how you use your vehicle.</p>
+
+<p>Your application should retain data from previous polls as opposed to
+expecting all data any time you poll.  The vehicle may be asleep and you
+won&#39;t get fresh data in that case.  You don&#39;t want to keep waking the
+vehicle up as it is expensive in the Tesla Fleet API and it will run
+down your vehicle&#39;s battery.  OpenHAB keeps the last received state,
+so this is handled automatically in my use case.</p>
+</div></div>
+
+      <div id="footer">
+  Generated by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.1.2).
+</div>
+
+    </div>
+  </body>
+</html>

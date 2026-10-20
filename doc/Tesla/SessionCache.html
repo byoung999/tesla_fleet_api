@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Tesla::SessionCache
+  
+    &mdash; Documentation by YARD 0.9.28
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Tesla::SessionCache";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span>
+     &raquo; 
+    <span class="title">SessionCache</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Tesla::SessionCache
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Tesla::SessionCache</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/signed_command/session_cache.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Persistent, file-backed store for signed-command session state. It uses an exclusive lock and atomic replacement so multiple processes can reserve monotonically increasing counters without corrupting the cached session.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developers.tesla.com/docs/fleet-api" target="_parent" title="https://developers.tesla.com/docs/fleet-api">https://developers.tesla.com/docs/fleet-api</a></li>
+    
+  </ul>
+
+</div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="FILE_MODE-constant" class="">FILE_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0o600</span></pre></dd>
+      
+        <dt id="LOCK_MODE-constant" class="">LOCK_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0o600</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>  &#x21d2; TrueClass<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes the persisted session while holding the cache lock.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(path)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Creates a session cache backed by the supplied JSON path and derives the companion lock-file path.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#load-instance_method" title="#load (instance method)">#<strong>load</strong>  &#x21d2; Hash<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Loads and validates the cached session while holding the cache lock.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#load_unlocked-instance_method" title="#load_unlocked (instance method)">#<strong>load_unlocked</strong>  &#x21d2; Hash<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Reads and validates the cache without acquiring the lock.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reserve_counter-instance_method" title="#reserve_counter (instance method)">#<strong>reserve_counter</strong>(private_key:, session:)  &#x21d2; Tesla::Session </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Atomically reconciles the in-memory session with the persisted session and reserves the next command counter.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#save-instance_method" title="#save (instance method)">#<strong>save</strong>(session)  &#x21d2; TrueClass </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Validates and atomically persists the session while holding the cache lock.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#save_unlocked-instance_method" title="#save_unlocked (instance method)">#<strong>save_unlocked</strong>(data)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Writes validated session data to a temporary file, fsyncs it, and atomically renames it over the cache file.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(path)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates a session cache backed by the supplied JSON path and derives the companion lock-file path.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/session_cache.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='ivar'>@path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span>
+  <span class='ivar'>@lock_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_content'>.lock</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="delete-instance_method">
+  
+    #<strong>delete</strong>  &#x21d2; <tt>TrueClass</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes the persisted session while holding the cache lock. Missing cache files are treated as a no-op.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>TrueClass</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the operation result.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+208
+209
+210
+211
+212</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/session_cache.rb', line 208</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span>
+  <span class='id identifier rubyid_with_lock'>with_lock</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_delete_unlocked'>delete_unlocked</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="load-instance_method">
+  
+    #<strong>load</strong>  &#x21d2; <tt>Hash</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Loads and validates the cached session while holding the cache lock. Invalid persisted data is discarded and reported as no cached session.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the requested protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36
+37</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/session_cache.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_load'>load</span>
+  <span class='id identifier rubyid_with_lock'>with_lock</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_load_unlocked'>load_unlocked</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="load_unlocked-instance_method">
+  
+    #<strong>load_unlocked</strong>  &#x21d2; <tt>Hash</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Reads and validates the cache without acquiring the lock. This is used internally when a caller already owns the cache lock.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/session_cache.rb', line 44</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_load_unlocked'>load_unlocked</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_file?'>file?</span><span class='lparen'>(</span><span class='ivar'>@path</span><span class='rparen'>)</span>
+
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span>
+      <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span>
+        <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='ivar'>@path</span><span class='rparen'>)</span>
+      <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_validate!'>validate!</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span><span class='comma'>,</span>
+         <span class='const'>KeyError</span><span class='comma'>,</span>
+         <span class='const'>TypeError</span><span class='comma'>,</span>
+         <span class='const'>ArgumentError</span>
+    <span class='id identifier rubyid_delete_unlocked'>delete_unlocked</span>
+    <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reserve_counter-instance_method">
+  
+    #<strong>reserve_counter</strong>(private_key:, session:)  &#x21d2; <tt><span class='object_link'><a href="Session.html" title="Tesla::Session (class)">Tesla::Session</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Atomically reconciles the in-memory session with the persisted session and reserves the next command counter. A newer cached session replaces the caller’s session; epoch and routing-address changes are rejected.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Session.html" title="Tesla::Session (class)">Tesla::Session</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the command result or constructed protocol value.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/session_cache.rb', line 152</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reserve_counter'>reserve_counter</span><span class='lparen'>(</span>
+  <span class='label'>private_key:</span><span class='comma'>,</span>
+  <span class='label'>session:</span>
+<span class='rparen'>)</span>
+  <span class='id identifier rubyid_with_lock'>with_lock</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span>
+      <span class='id identifier rubyid_load_unlocked'>load_unlocked</span>
+
+    <span class='kw'>unless</span> <span class='id identifier rubyid_data'>data</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session cache is empty</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_cached_session'>cached_session</span> <span class='op'>=</span>
+      <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Session.html" title="Tesla::Session (class)">Session</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_h'><span class='object_link'><a href="Session.html#from_h-class_method" title="Tesla::Session.from_h (method)">from_h</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_data'>data</span><span class='comma'>,</span>
+        <span class='label'>private_key:</span> <span class='id identifier rubyid_private_key'>private_key</span>
+      <span class='rparen'>)</span>
+
+    <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="Crypto.html" title="Tesla::Crypto (module)">Crypto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_secure_compare'><span class='object_link'><a href="Crypto.html#secure_compare-class_method" title="Tesla::Crypto.secure_compare (method)">secure_compare</a></span></span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_cached_session'>cached_session</span><span class='period'>.</span><span class='id identifier rubyid_epoch'>epoch</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_epoch'>epoch</span>
+    <span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cached session epoch changed</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="Crypto.html" title="Tesla::Crypto (module)">Crypto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_secure_compare'><span class='object_link'><a href="Crypto.html#secure_compare-class_method" title="Tesla::Crypto.secure_compare (method)">secure_compare</a></span></span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_cached_session'>cached_session</span><span class='period'>.</span><span class='id identifier rubyid_routing_address'>routing_address</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_routing_address'>routing_address</span>
+    <span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Tesla.html" title="Tesla (module)">Tesla</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProtocolError.html" title="Tesla::ProtocolError (class)">ProtocolError</a></span></span><span class='comma'>,</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cached session routing address changed</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_cached_session'>cached_session</span><span class='period'>.</span><span class='id identifier rubyid_current_counter'>current_counter</span> <span class='op'>&gt;</span>
+       <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_current_counter'>current_counter</span>
+      <span class='id identifier rubyid_session'>session</span> <span class='op'>=</span>
+        <span class='id identifier rubyid_cached_session'>cached_session</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_advance_counter'>advance_counter</span>
+
+    <span class='id identifier rubyid_save_unlocked'>save_unlocked</span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_session'>session</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="save-instance_method">
+  
+    #<strong>save</strong>(session)  &#x21d2; <tt>TrueClass</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Validates and atomically persists the session while holding the cache lock. The method returns true after the durable replacement succeeds.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>session</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Session.html" title="Tesla::Session (class)">Tesla::Session</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>TrueClass</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the operation result.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/session_cache.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_save'>save</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span>
+    <span class='id identifier rubyid_session'>session</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>
+
+  <span class='id identifier rubyid_validate!'>validate!</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_data'>data</span>
+  <span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_with_lock'>with_lock</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_save_unlocked'>save_unlocked</span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_data'>data</span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="save_unlocked-instance_method">
+  
+    #<strong>save_unlocked</strong>(data)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Writes validated session data to a temporary file, fsyncs it, and atomically renames it over the cache file. The temporary file is removed if the operation fails.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>data</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value used by the operation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/signed_command/session_cache.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_save_unlocked'>save_unlocked</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_directory'>directory</span> <span class='op'>=</span>
+    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='ivar'>@path</span><span class='rparen'>)</span>
+
+  <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_p'>mkdir_p</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_directory'>directory</span>
+  <span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_temp_path'>temp_path</span> <span class='op'>=</span> <span class='kw'>nil</span>
+
+  <span class='kw'>begin</span>
+    <span class='const'>Tempfile</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.session-</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.tmp</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_directory'>directory</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span>
+      <span class='id identifier rubyid_temp_path'>temp_path</span> <span class='op'>=</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
+
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_chmod'>chmod</span><span class='lparen'>(</span>
+        <span class='const'><span class='object_link'><a href="#FILE_MODE-constant" title="Tesla::SessionCache::FILE_MODE (constant)">FILE_MODE</a></span></span><span class='comma'>,</span>
+        <span class='id identifier rubyid_temp_path'>temp_path</span>
+      <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span>
+        <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
+      <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_flush'>flush</span>
+      <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_fsync'>fsync</span>
+
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_rename'>rename</span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_temp_path'>temp_path</span><span class='comma'>,</span>
+        <span class='ivar'>@path</span>
+      <span class='rparen'>)</span>
+
+      <span class='id identifier rubyid_temp_path'>temp_path</span> <span class='op'>=</span> <span class='kw'>nil</span>
+    <span class='kw'>end</span>
+  <span class='kw'>ensure</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_temp_path'>temp_path</span> <span class='op'>&amp;&amp;</span>
+       <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_temp_path'>temp_path</span><span class='rparen'>)</span>
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_unlink'>unlink</span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_temp_path'>temp_path</span>
+      <span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_chmod'>chmod</span><span class='lparen'>(</span>
+    <span class='const'><span class='object_link'><a href="#FILE_MODE-constant" title="Tesla::SessionCache::FILE_MODE (constant)">FILE_MODE</a></span></span><span class='comma'>,</span>
+    <span class='ivar'>@path</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.1.2).
+</div>
+
+    </div>
+  </body>
+</html>
